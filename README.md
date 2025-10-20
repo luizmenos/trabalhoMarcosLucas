@@ -29,7 +29,7 @@ pip install pillow
 
   Na raiz do projeto, execute o arquivo `gerar_imagens.py` para criar 30 imagens aleatórias na pasta `/data/input` 
   ```bash 
-  python gerar_images.py
+  python gerar_imagens.py
   ```
 
 **2. Rodar o sistema no Docker Compose**
