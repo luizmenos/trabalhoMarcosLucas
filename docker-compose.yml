@@ -1,13 +1,36 @@
 services:
   redis:
-    image: redis:latest
+    image: redis:alpine
     container_name: redis_queue
     restart: always
     ports:
-      - '6379:6379'
+      - "6379:6379"
     command: redis-server --save 20 1 --loglevel warning --requirepass secret
     volumes:
       - data-volume:/data
+
+  app:
+    build: ./app
+    container_name: image_producer
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=redis
+    volumes:
+      - ./data/input:/app/input
+
+  worker:
+    build: ./worker
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=redis
+    volumes:
+      - ./data/input:/app/input
+      - ./data/output:/app/output
+    deploy:
+      replicas: 3  # 3 workers em paralelo
+    restart: always
 
 volumes:
   data-volume:
