@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-worker-deployment
+  labels:
+    app: image-worker
+spec:
+  replicas: 3 # De acordo com o docker-compose.yaml
+  selector:
+    matchLabels:
+      app: image-worker
+  template:
+    metadata:
+      labels:
+        app: image-worker
+    spec:
+      containers:
+      - name: image-worker
+        image: image-worker:1.0
+        env:
+        - name: REDIS_HOST
+          value: "redis-service" # Nome do Service do Redis
+        - name: REDIS_PASSWORD # Senha do Redis
+          value: "secret"
+        volumeMounts:
+        - name: input-volume
+          mountPath: /app/input
+        - name: output-volume
+          mountPath: /app/output
+      volumes:
+      - name: input-volume
+        hostPath:
+          path: /data/input 
+          type: DirectoryOrCreate
+      - name: output-volume
+        hostPath:
+          path: /data/output 
+          type: DirectoryOrCreate

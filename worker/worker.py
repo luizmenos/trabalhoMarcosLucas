@@ -10,7 +10,7 @@ def redis_db():
         host=os.getenv("REDIS_HOST", config.redis_host),
         port=config.redis_port, 
         db=config.redis_db_number, 
-        password= config.redis_password, 
+        password= os.getenv("REDIS_PASSWORD", config.redis_password), 
         decode_responses=False
         )
     

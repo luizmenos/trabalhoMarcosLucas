@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-producer-deployment
+  labels:
+    app: image-producer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: image-producer
+  template:
+    metadata:
+      labels:
+        app: image-producer
+    spec:
+      containers:
+      - name: image-producer
+        image: image-producer:1.0 # Imagem construída via docker build -t image-producer:1.0 ./app
+        env:
+        - name: REDIS_HOST
+          value: "redis-service" # Nome do Service do Redis
+        - name: REDIS_PASSWORD # Senha do Redis
+          value: "secret"
+        volumeMounts:
+        - name: input-volume
+          mountPath: /app/input
+      volumes:
+      - name: input-volume
+        hostPath: # Mapear diretórios locais no Docker Desktop
+          path: /data/input 
+          type: DirectoryOrCreate
