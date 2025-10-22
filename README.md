@@ -25,22 +25,22 @@ pip install pillow
 
 # Passo a passo pra rodar o projeto
 
-1. Gerar imagens
+**1. Gerar imagens**
 
-Na raiz do projeto, execute o arquivo `gerar_imagens.py` para criar 30 imagens aleatórias na pasta `/data/input` 
-```bash 
-python gerar_images.py
-```
+  Na raiz do projeto, execute o arquivo `gerar_imagens.py` para criar 30 imagens aleatórias na pasta `/data/input` 
+  ```bash 
+  python gerar_imagens.py
+  ```
 
-2. Rodar o sistema no Docker Compose
+**2. Rodar o sistema no Docker Compose**
 
-Ainda na raiz, execute:
-```bash
-docker-compose up --build
-```
+  Ainda na raiz, execute:
+  ```bash
+  docker-compose up --build
+  ```
 
-* O container `image_producer` vai enfileirar todas as imagens do `/data/input` na queue do redis
-* Os workers vão consumir as imagens, aplicar a escala de cinza e salvar em `/data/output/`
+  * O container `image_producer` vai enfileirar todas as imagens do `/data/input` na queue do redis
+  * Os workers vão consumir as imagens, aplicar a escala de cinza e salvar em `/data/output/`
 
 # Estrutura do Projeto
 ```bash
