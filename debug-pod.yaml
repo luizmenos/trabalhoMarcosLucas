@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug-pod
+spec:
+  containers:
+  - name: debug
+    image: ubuntu
+    command: ["sleep", "3600"]
+    volumeMounts:
+    - name: input-volume
+      mountPath: /app/input
+    - name: output-volume
+      mountPath: /app/output
+  volumes:
+  - name: input-volume
+    persistentVolumeClaim:
+      claimName: input-pvc
+  - name: output-volume
+    persistentVolumeClaim:
+      claimName: output-pvc
