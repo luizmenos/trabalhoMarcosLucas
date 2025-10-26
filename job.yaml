@@ -8,8 +8,8 @@ spec:
       restartPolicy: OnFailure
       containers:
       - name: gerar-imagens
-        image: image-producer:1.0
-        command: ["python", "gerar_imagens.py"]
+        image: gerar-imagens:latest
+        command: ["python", "/app/gerar_imagens.py"]
         volumeMounts:
         - name: input-volume
           mountPath: /app/input
