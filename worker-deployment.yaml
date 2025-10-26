@@ -29,10 +29,8 @@ spec:
           mountPath: /app/output
       volumes:
       - name: input-volume
-        hostPath:
-          path: /data/input 
-          type: DirectoryOrCreate
+        persistentVolumeClaim:
+          claimName: input-pvc
       - name: output-volume
-        hostPath:
-          path: /data/output 
-          type: DirectoryOrCreate
+        persistentVolumeClaim:
+          claimName: output-pvc

@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gerar-imagens-job
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: gerar-imagens
+        image: image-producer:1.0
+        command: ["python", "gerar_imagens.py"]
+        volumeMounts:
+        - name: input-volume
+          mountPath: /app/input
+      volumes:
+      - name: input-volume
+        persistentVolumeClaim:
+          claimName: input-pvc

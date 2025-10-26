@@ -27,6 +27,5 @@ spec:
           mountPath: /app/input
       volumes:
       - name: input-volume
-        hostPath: # Mapear diretórios locais no Docker Desktop
-          path: /data/input 
-          type: DirectoryOrCreate
+        persistentVolumeClaim:
+          claimName: input-pvc
